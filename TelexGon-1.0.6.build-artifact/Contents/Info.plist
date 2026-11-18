@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>vi</string>
+	<key>CFBundleDisplayName</key>
+	<string>Telex Gọn</string>
+	<key>CFBundleExecutable</key>
+	<string>TelexGon</string>
+	<key>CFBundleIdentifier</key>
+	<string>vn.codex.inputmethod.telexgon</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Telex Gọn</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.6</string>
+	<key>CFBundleVersion</key>
+	<string>8</string>
+	<key>ComponentInputModeDict</key>
+	<dict>
+		<key>tsInputModeListKey</key>
+		<dict>
+			<key>vn.codex.inputmethod.telexgon.vi</key>
+			<dict>
+				<key>TISInputSourceID</key>
+				<string>vn.codex.inputmethod.telexgon.vi</string>
+				<key>TISIntendedLanguage</key>
+				<string>vi</string>
+				<key>tsInputModeDefaultStateKey</key>
+				<true/>
+				<key>tsInputModeIsVisibleKey</key>
+				<true/>
+				<key>tsInputModeMenuIconFileKey</key>
+				<string>TelexGon.png</string>
+				<key>tsInputModePaletteIconFileKey</key>
+				<string>TelexGon.png</string>
+				<key>tsInputModePrimaryInScriptKey</key>
+				<true/>
+				<key>tsInputModeScriptKey</key>
+				<string>smRoman</string>
+			</dict>
+		</dict>
+		<key>tsVisibleInputModeOrderedArrayKey</key>
+		<array>
+			<string>vn.codex.inputmethod.telexgon.vi</string>
+		</array>
+	</dict>
+	<key>InputMethodConnectionName</key>
+	<string>vn.codex.inputmethod.telexgon_Connection</string>
+	<key>InputMethodServerControllerClass</key>
+	<string>TelexGonController</string>
+	<key>InputMethodServerDataSourceClass</key>
+	<string>TelexGonController</string>
+	<key>InputMethodServerDelegateClass</key>
+	<string>TelexGonController</string>
+	<key>LSBackgroundOnly</key>
+	<true/>
+	<key>LSMinimumSystemVersion</key>
+	<string>13.0</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<key>TISInputSourceID</key>
+	<string>vn.codex.inputmethod.telexgon</string>
+	<key>TISIntendedLanguage</key>
+	<string>vi</string>
+	<key>tsInputMethodCharacterRepertoireKey</key>
+	<array>
+		<string>Latn</string>
+	</array>
+	<key>tsInputMethodIconFileKey</key>
+	<string>TelexGon.png</string>
+</dict>
+</plist>
