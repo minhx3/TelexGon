@@ -1,21 +1,7 @@
 #import <AppKit/AppKit.h>
-#import <Carbon/Carbon.h>
 #import <InputMethodKit/InputMethodKit.h>
-
-static TISInputSourceRef copySource(NSString *identifier)
-{
-    NSDictionary *filter = @{(__bridge NSString *)kTISPropertyInputSourceID: identifier};
-    NSArray *sources = CFBridgingRelease(
-        TISCreateInputSourceList((__bridge CFDictionaryRef)filter, true));
-    TISInputSourceRef source = (__bridge TISInputSourceRef)sources.firstObject;
-    if (source) CFRetain(source);
-    return source;
-}
-
-static bool sourceFlag(TISInputSourceRef source, CFStringRef property)
-{
-    return TISGetInputSourceProperty(source, property) == kCFBooleanTrue;
-}
+#import "TelexAppExclusions.h"
+#import "TelexInputSources.h"
 
 static int configureInputSource(const char *argument)
 {
@@ -46,10 +32,10 @@ static int configureInputSource(const char *argument)
         }
     }
 
-    TISInputSourceRef parent = copySource(identifier);
-    TISInputSourceRef mode = copySource([identifier stringByAppendingString:@".vi"]);
-    bool parentEnabled = parent && sourceFlag(parent, kTISPropertyInputSourceIsEnabled);
-    bool modeEnabled = mode && sourceFlag(mode, kTISPropertyInputSourceIsEnabled);
+    TISInputSourceRef parent = TelexCopyInputSource(identifier);
+    TISInputSourceRef mode = TelexCopyInputSource([identifier stringByAppendingString:@".vi"]);
+    bool parentEnabled = parent && TelexInputSourceHasFlag(parent, kTISPropertyInputSourceIsEnabled);
+    bool modeEnabled = mode && TelexInputSourceHasFlag(mode, kTISPropertyInputSourceIsEnabled);
     OSStatus status = noErr;
     int result = 0;
     if (statusQuery) {
@@ -87,6 +73,7 @@ int main(int argc, const char *argv[])
         IMKServer *server = [[IMKServer alloc] initWithName:connection
                                          bundleIdentifier:bundle.bundleIdentifier];
         if (!server) return 1;
+        [[TelexAppExclusions sharedExclusions] startMonitoring];
         [application run];
         return 0;
     }

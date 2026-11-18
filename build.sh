@@ -9,7 +9,9 @@ cp src/Info.plist "$app/Contents/Info.plist"
 xcrun clang -arch arm64 -mmacosx-version-min=13.0 -std=c17 \
     -fobjc-arc -Oz -flto -Wall -Wextra -Werror -Wno-unused-parameter \
     -Wl,-dead_strip -framework AppKit -framework Carbon -framework InputMethodKit \
-    src/main.m src/TelexController.m src/Telex.c -o "$app/Contents/MacOS/TelexGon"
+    -framework UniformTypeIdentifiers \
+    src/main.m src/TelexController.m src/TelexAppExclusions.m src/Telex.c \
+    -o "$app/Contents/MacOS/TelexGon"
 xcrun strip -x "$app/Contents/MacOS/TelexGon"
 
 if [[ "${TELEXGON_SIGN_IDENTITY:--}" != "-" ]]; then

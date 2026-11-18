@@ -2,6 +2,7 @@
 #import <Carbon/Carbon.h>
 #import <InputMethodKit/InputMethodKit.h>
 #import "Telex.h"
+#import "TelexAppExclusions.h"
 
 static const NSRange currentInsertion = {NSNotFound, 0};
 
@@ -146,9 +147,32 @@ static const NSRange currentInsertion = {NSNotFound, 0};
     [super deactivateServer:sender];
 }
 
+- (NSMenu *)menu
+{
+    NSMenu *menu = [NSMenu new];
+    [menu addItemWithTitle:NSLocalizedString(@"Ứng dụng loại trừ…", nil)
+                    action:@selector(showPreferences:) keyEquivalent:@""];
+    return menu;
+}
+
+- (void)showPreferences:(id)sender
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[TelexAppExclusions sharedExclusions] showSettings];
+    });
+}
+
 - (BOOL)handleEvent:(NSEvent *)event client:(id<IMKTextInput>)client
 {
     if (event.type != NSEventTypeKeyDown) return NO;
+
+    TelexAppExclusions *exclusions = [TelexAppExclusions sharedExclusions];
+    if ([exclusions hasExcludedApplications] &&
+        [(id)client respondsToSelector:@selector(bundleIdentifier)] &&
+        [exclusions containsApplication:[client bundleIdentifier]]) {
+        [self commitComposition:client];
+        return NO;
+    }
 
     const NSEventModifierFlags shortcuts =
         NSEventModifierFlagCommand | NSEventModifierFlagControl | NSEventModifierFlagOption;
